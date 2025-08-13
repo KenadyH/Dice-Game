@@ -51,6 +51,33 @@ def rolling():
             print("It was nice playing with you! Bye!")
             break
 
+def money():
+    while true:
+        try:
+            money = int(input("How much money do you want to bet? (100<1000) "))
+            if 100 <= money <= 1000:
+            print('The minimum bet is 100 dollars.')
+            except ValueError:
+            print("You have to bet 100 dollars or more.")
+                return money 
+            print(f"You have {enter money:}"good luck!")
+    if result=="Win":
+        print("You won! Would you like to bet again? (yes/no) ")
+        elif result=="Lose":
+        print("You lost! Would you like to bet again? (yes/no) ")
+        if =="yes"
+        add more money()
+        if no
+        else:
+            print("Thanks for playing! Goodbye!")
+            
+        
+        
+
+        
+            
+
+
 
 
 
