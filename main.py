@@ -1,5 +1,9 @@
 import random
 import time as t
+from datetime import datetime
+
+history = []
+current_user= ''
 
 
 def action(choice):
@@ -12,7 +16,7 @@ def action(choice):
         print ("You got: ", human)
         sum_h += human
     t.sleep(1)
-    print("\n Your Total Is: ", sum_h)
+    print("\nYour Total Is: ", sum_h)
     t.sleep(1)
     print("\nNow it's my turn")
     t.sleep(1)
@@ -26,9 +30,15 @@ def action(choice):
     print("\nMy Total Is: ", sum_b)
     t.sleep(2)
 
-    result = "\n You Win" if sum_h > sum_b else "\nI Win" if sum_h < sum_b else "\n It's a Tie"
+    result = "\nYou Win" if sum_h > sum_b else "\nI Win" if sum_h < sum_b else "\nIt's a Tie"
     print(result)
     t.sleep(1) 
+
+    score_total = (f"Your total was {sum_h}\nMy total was {sum_b}{result}\n\n")
+    
+    with open("History_File", "a") as file:
+        file.write(score_total)
+
 
 
 def rolling():
@@ -52,6 +62,14 @@ def rolling():
             break
 
 
+def show_previous_history():
+    User_name = f"{current_user}_history.txt"
+    try:
+        with open(User_name, "r") as file:
+         print(f"\n== Your Previous Game History ===")
+         print(file.read())
+    except FileNotFoundError:
+         print("f\nNo previous game history found for this user.")  
 
 
 
