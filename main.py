@@ -70,8 +70,8 @@ def money():
                 return bet
             else:
                 print("The bet must be between 100 and 1000 dollars.")
-            except ValueError:
-                print("Please enter a valid number.")
+        except ValueError:
+            print("Please enter a valid number.")
 def game():
     while True:
         bet = money()
