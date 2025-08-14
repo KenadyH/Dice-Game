@@ -61,6 +61,40 @@ def rolling():
             print("It was nice playing with you! Bye!")
             break
 
+def money():
+    while True:
+        try:
+            bet = int(input("How much money do you want to bet? (100<1000) "))
+            if 100 <= bet <= 1000:
+                print(f"you have {bet} dollars. Good luck!")
+                return bet
+            else:
+                print("The bet must be between 100 and 1000 dollars.")
+            except ValueError:
+                print("Please enter a valid number.")
+def game():
+    while True:
+        bet = money()
+        result = input("Enter result (Win or Lose): ").strip().lower()
+        
+        if result == "win":
+            answer = input("You won would you like to bet again? (yes/no)").strip().lower()
+        elif result == "lose":
+            answer = input("You lost! would you like to bet again? (yes/no)").strip().lower()
+        else:
+            print("Invalid result.")
+        if answer =="yes": 
+            continue 
+        else:
+            print("Thanks for playing! Goodbye!")
+            break
+        
+        
+
+        
+            
+
+
 
 def show_previous_history():
     User_name = f"{current_user}_history.txt"
