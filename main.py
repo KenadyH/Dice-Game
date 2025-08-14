@@ -1,6 +1,67 @@
 import random
 import time as t
 from datetime import datetime
+import json
+import os
+
+
+USER_FILE = "users.json"
+
+
+def load_users():
+    if os.path.exists(USER_FILE):
+        with open(USER_FILE, "r") as f:
+            return json.load(f)
+    return {}
+
+
+def save_users(users):
+    with open(USER_FILE, "w") as f:
+        json.dump(users, f)
+
+
+def sign_in():
+    users = load_users()
+
+
+    print("=== Welcome to Dice Game ===")
+    print("1. Sign Up")
+    print("2. Log In")
+
+
+    choice = input("Select option: ").strip()
+
+
+    if choice == "1":
+        username = input("Create username: ").strip()
+        if username in users:
+            print("Username already exists! Please log in instead.")
+            return sign_in()
+
+
+        password = input("Create password: ").strip()
+        users[username] = password
+        save_users(users)
+        print("Account created! You can now log in.")
+        return sign_in()
+
+
+    elif choice == "2":
+        username = input("Username: ").strip()
+        password = input("Password: ").strip()
+
+
+        if username in users and users[username] == password:
+            print(f"Welcome back, {username}!")
+            return True
+        else:
+            print("Invalid username or password. Try again.\n")
+            return sign_in()
+
+
+    else:
+        print("Invalid choice, try again.\n")
+        return sign_in()
 
 history = []
 current_user= ''
@@ -52,7 +113,7 @@ def rolling():
         else:
             print("Please enter a valid choice.")
 
-    print("Do you want to continue? (yes/no")
+    print("Do you want to continue? (yes/no)")
     while roll !="Yes":
         roll = input().lower().capitalize()
         if roll == "Yes":
@@ -72,6 +133,7 @@ def money():
                 print("The bet must be between 100 and 1000 dollars.")
         except ValueError:
             print("Please enter a valid number.")
+
 def game():
     while True:
         bet = money()
@@ -88,13 +150,6 @@ def game():
         else:
             print("Thanks for playing! Goodbye!")
             break
-        
-        
-
-        
-            
-
-
 
 def show_previous_history():
     User_name = f"{current_user}_history.txt"
@@ -106,6 +161,6 @@ def show_previous_history():
          print("f\nNo previous game history found for this user.")  
 
 
-
 if __name__ == '__main__':
-    rolling()
+    if sign_in():
+        rolling()
