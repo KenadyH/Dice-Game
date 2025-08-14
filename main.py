@@ -106,6 +106,7 @@ def rolling():
     die= 0
     roll = " "
     while die==0:
+        money()
         choice = int(input("How many dice do you want to roll? (1-3) "))
         if choice>0 and choice<4:
             action(choice)
