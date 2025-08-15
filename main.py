@@ -113,7 +113,7 @@ def rolling():
             action(choice)
             break
         else:
-            print("Please enter a valid choice.")
+            print(f"Please enter a valid choice.")
 
     print(f"Do you want to continue? (yes/no)")
     while roll !="Yes":
@@ -160,7 +160,7 @@ def show_previous_history():
          print(f"\n== Your Previous Game History ===")
          print(file.read())
     except FileNotFoundError:
-         print("f\nNo previous game history found for this user.")  
+         print(f"\nNo previous game history found for this user.")  
 
 
 if __name__ == '__main__':
