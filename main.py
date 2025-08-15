@@ -24,26 +24,26 @@ def sign_in():
     users = load_users()
 
 
-    print("=== Welcome to Dice Game ===")
-    print("Pick Number 1 or 2")
-    print("1. Sign Up")
-    print("2. Log In")
+    print(f"=== Welcome to Dice Game ===")
+    print(f"Pick Number 1 or 2")
+    print(f"1. Sign Up")
+    print(f"2. Log In")
 
 
-    choice = input("Select option: ").strip()
+    choice = input(f"Select option: ").strip()
 
 
     if choice == "1":
-        username = input("Create username: ").strip()
+        username = input(f"Create username: ").strip()
         if username in users:
-            print("Username already exists! Please log in instead.")
+            print(f"Username already exists! Please log in instead.")
             return sign_in()
 
 
-        password = input("Create password: ").strip()
+        password = input(f"Create password: ").strip()
         users[username] = password
         save_users(users)
-        print("Account created! You can now log in.")
+        print(f"Account created! You can now log in.")
         return sign_in()
 
 
@@ -56,12 +56,12 @@ def sign_in():
             print(f"Welcome back, {username}!")
             return True
         else:
-            print("Invalid username or password. Try again.\n")
+            print(f"Invalid username or password. Try again.\n")
             return sign_in()
 
 
     else:
-        print("Invalid choice, try again.\n")
+        print(f"Invalid choice, try again.\n")
         return sign_in()
 
 history = []
@@ -70,17 +70,17 @@ current_user= ''
 
 def action(choice):
     sum_h = sum_b = 0
-    print("Okay! Go for it!")
+    print(f"Okay! Go for it!")
     t.sleep(1)
     for die in range (0, choice):
         human = random.randint(1,6) 
         t.sleep(1)
-        print ("You got: ", human)
+        print (f"You got: ", human)
         sum_h += human
     t.sleep(1)
-    print("\nYour Total Is: ", sum_h)
+    print(f"\nYour Total Is: ", sum_h)
     t.sleep(1)
-    print("\nNow it's my turn")
+    print(f"\nNow it's my turn")
     t.sleep(1)
 
     for die in range (0,choice):
@@ -89,7 +89,7 @@ def action(choice):
         print("I got: ", bot)
         sum_b += bot
     t.sleep(1)
-    print("\nMy Total Is: ", sum_b)
+    print(f"\nMy Total Is: ", sum_b)
     t.sleep(2)
 
     result = "\nYou Win" if sum_h > sum_b else "\nI Win" if sum_h < sum_b else "\nIt's a Tie"
@@ -108,49 +108,49 @@ def rolling():
     roll = " "
     while die==0:
         money()
-        choice = int(input("How many dice do you want to roll? (1-3) "))
+        choice = int(input(f"How many dice do you want to roll? (1-3) "))
         if choice>0 and choice<4:
             action(choice)
             break
         else:
             print("Please enter a valid choice.")
 
-    print("Do you want to continue? (yes/no)")
+    print(f"Do you want to continue? (yes/no)")
     while roll !="Yes":
         roll = input().lower().capitalize()
         if roll == "Yes":
             rolling()
         else:
-            print("It was nice playing with you! Bye!")
+            print(f"It was nice playing with you! Bye!")
             break
 
 def money():
     while True:
         try:
-            bet = int(input("How much money do you want to bet? (100<1000) "))
+            bet = int(input(f"How much money do you want to bet? (100<1000) "))
             if 100 <= bet <= 1000:
                 print(f"you have {bet} dollars. Good luck!")
                 return bet
             else:
-                print("The bet must be between 100 and 1000 dollars.")
+                print(f"The bet must be between 100 and 1000 dollars.")
         except ValueError:
-            print("Please enter a valid number.")
+            print(f"Please enter a valid number.")
 
 def game():
     while True:
         bet = money()
-        result = input("Enter result (Win or Lose): ").strip().lower()
+        result = input(f"Enter result (Win or Lose): ").strip().lower()
         
         if result == "win":
-            answer = input("You won would you like to bet again? (yes/no)").strip().lower()
+            answer = input(f"You won would you like to bet again? (yes/no)").strip().lower()
         elif result == "lose":
-            answer = input("You lost! would you like to bet again? (yes/no)").strip().lower()
+            answer = input(f"You lost! would you like to bet again? (yes/no)").strip().lower()
         else:
-            print("Invalid result.")
+            print(f"Invalid result.")
         if answer =="yes": 
             continue 
         else:
-            print("Thanks for playing! Goodbye!")
+            print(f"Thanks for playing! Goodbye!")
             break
 
 def show_previous_history():
