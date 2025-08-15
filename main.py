@@ -25,6 +25,7 @@ def sign_in():
 
 
     print("=== Welcome to Dice Game ===")
+    print("Pick Number 1 or 2")
     print("1. Sign Up")
     print("2. Log In")
 
