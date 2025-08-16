@@ -6,3 +6,107 @@ Your total was 2
 My total was 1
 ✅ You Win!
 
+Your total was 2
+My total was 6
+❌ I Win!
+
+Your total was 4
+My total was 5
+❌ I Win!
+
+Your total was 2
+My total was 2
+😐 It's a Tie (no money lost).
+
+Your total was 6
+My total was 4
+✅ You Win!
+
+Your total was 6
+My total was 1
+✅ You Win!
+
+Your total was 4
+My total was 4
+😐 It's a Tie (no money lost).
+
+Your total was 2
+My total was 2
+😐 It's a Tie (no money lost).
+
+Your total was 1
+My total was 1
+😐 It's a Tie (no money lost).
+
+Your total was 5
+My total was 4
+✅ You Win!
+
+Your total was 7
+My total was 4
+✅ You Win!
+
+Your total was 3
+My total was 1
+✅ You Win!
+
+Your total was 1
+My total was 3
+❌ I Win!
+
+Your total was 3
+My total was 4
+❌ I Win!
+
+Your total was 6
+My total was 6
+😐 It's a Tie (no money lost).
+
+Your total was 6
+My total was 4
+✅ You Win!
+
+Your total was 2
+My total was 3
+❌ I Win!
+
+Your total was 1
+My total was 5
+❌ I Win!
+
+Your total was 5
+My total was 2
+✅ You Win!
+
+Your total was 6
+My total was 1
+✅ You Win!
+
+Your total was 5
+My total was 4
+✅ You Win!
+
+Your total was 6
+My total was 6
+😐 It's a Tie (no money lost).
+
+Your total was 6
+My total was 5
+✅ You Win!
+
+Your total was 1
+My total was 6
+❌ I Win!
+
+Your total was 6
+My total was 5
+✅ You Win!
+
+Your total was 3
+My total was 1
+✅ You Win!
+
+Your total was 8
+My total was 14
+❌ I Win!
+

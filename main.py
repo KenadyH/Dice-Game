@@ -93,6 +93,7 @@ def action(choice, bet):
         print(f"You lost ${bet}. Current profit: ${balance}")
     else:
         result = "\n😐 It's a Tie (no money lost)."
+        print(f"No change in balance. Current profit: ${balance}")
 
 
     score_total = (f"Your total was {sum_h}\nMy total was {sum_b}{result}\n\n")
@@ -110,23 +111,31 @@ def rolling():
             if 1 <= choice <= 3:
                 action(choice, bet)
             else:
-                print("Please enter a valid choice.")
+                print("Please enter a valid choice (1-3).")
                 continue
         except ValueError:
             print("Please enter a valid number.")
             continue
 
-
-        roll = input("Do you want to continue? (yes/no): ").strip().lower()
-        if roll != "yes":
-            print("\n=== Game Over ===")
-            if balance > 0:
-                print(f"🎉 You finished with a profit of ${balance}!")
-            elif balance < 0:
-                print(f"💸 You finished with a loss of ${-balance}.")
+        while True:
+            roll = input("Do you want to continue? (yes/no): ").strip().lower()
+            
+            if roll == "no":
+                print("\n=== Game Over ===")
+                if balance > 0:
+                    print(f"🎉 You finished with a profit of ${balance}!")
+                elif balance < 0:
+                    print(f"💸 You finished with a loss of ${-balance}.")
+                else:
+                    print("😐 You broke even.")
+                return 
+            
+            elif roll == "yes":
+                break 
+            
             else:
-                print("😐 You broke even.")
-                break
+                print("Invalid input. Please enter exactly 'yes' or 'no'.")
+
 
 
 def money():
@@ -139,24 +148,6 @@ def money():
                 print("The bet must be between 100 and 1000 dollars.")
         except ValueError:
             print("Please enter a valid number.")
-
-
-def game():
-    while True:
-        bet = money()
-        result = input("Enter result (Win or Lose): ").strip().lower()
-       
-        if result == "win":
-            answer = input("You won would you like to bet again? (yes/no)").strip().lower()
-        elif result == "lose":
-            answer = input("You lost! would you like to bet again? (yes/no)").strip().lower()
-        else:
-            print("Invalid result.")
-        if answer =="yes":
-            continue
-        else:
-            print("Thanks for playing! Goodbye!")
-            break
 
 
 def show_previous_history():

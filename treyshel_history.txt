@@ -1,0 +1,12 @@
+Your total was 3
+My total was 3
+😐 It's a Tie (no money lost).
+
+Your total was 7
+My total was 9
+❌ I Win!
+
+Your total was 9
+My total was 17
+❌ I Win!
+
