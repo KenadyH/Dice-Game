@@ -10,15 +10,10 @@ USER_FILE = "users.json"
 
 def load_users():
     if os.path.exists(USER_FILE):
-        try:
-            with open(USER_FILE, "r") as f:
-                data = f.read().strip()
-                if not data:  # file is empty
-                    return {}
-                return json.loads(data)
-        except json.JSONDecodeError:
-            return {}  # Return empty dict if file is invalid
+        with open(USER_FILE, "r") as f:
+            return json.load(f)
     return {}
+
 
 def save_users(users):
     with open(USER_FILE, "w") as f:
@@ -26,79 +21,56 @@ def save_users(users):
 
 
 def sign_in():
-    global current_user
     users = load_users()
 
-
     print("=== Welcome to Dice Game ===")
-    print("Pick Number 1 or 2")
-    print("1. Sign Up")
-    print("2. Log In")
-
-
+    print("[1] Sign Up")
+    print("[2] Log In")
     choice = input("Select option: ").strip()
-
-
     if choice == "1":
         username = input("Create username: ").strip()
         if username in users:
             print("Username already exists! Please log in instead.")
             return sign_in()
-
-
         password = input("Create password: ").strip()
         users[username] = password
         save_users(users)
         print("Account created! You can now log in.")
         return sign_in()
-
-
     elif choice == "2":
         username = input("Username: ").strip()
         password = input("Password: ").strip()
-
-
         if username in users and users[username] == password:
             print(f"Welcome back, {username}!")
-            return True
+            return username
         else:
             print("Invalid username or password. Try again.\n")
             return sign_in()
-
-
     else:
         print("Invalid choice, try again.\n")
         return sign_in()
 
+
 history = []
 current_user= ''
+balance = 0
 
 
-def action(num_dice):
+def action(choice, bet):
+    global balance
     sum_h = sum_b = 0
     print("Okay! Go for it!")
-    for _ in range(num_dice):
-     roll = random.randint(1, 6)
-     print(f"You rolled: {roll}")
-    sum_h += roll
-    print(f"Your total: {sum_h}\n")
-
-    print("Computer's turn:")
-    for _ in range(num_dice):
-        roll = random.randint(1,6)
-        print(f"Computer rolled:{roll}")
-        sum_b +=roll
-        print(f"Computer total:{sum_b}\n")
-    
-    if sum_h>sum_b:
-        print("You win this round!")
-    elif sum_h < sum_b:
-        print("Computer wins this round!")
-    else: 
-        print("It's a tie this round!")
-    return sum_h,sum_b
-
-
+    t.sleep(1)
+    for die in range (0, choice):
+        human = random.randint(1,6)
+        t.sleep(1)
+        print ("You got: ", human)
+        sum_h += human
+    t.sleep(1)
+    print("\nYour Total Is: ", sum_h)
+    t.sleep(1)
+    print("\nNow it's my turn")
+    t.sleep(1)
 
 
     for die in range (0,choice):
@@ -110,117 +82,92 @@ def action(num_dice):
     print("\nMy Total Is: ", sum_b)
     t.sleep(2)
 
-    result = "\nYou Win" if sum_h > sum_b else "\nI Win" if sum_h < sum_b else "\nIt's a Tie"
-    print(result)
-    t.sleep(1) 
+
+    if sum_h > sum_b:
+        result = "\n✅ You Win!"
+        balance += bet
+        print(f"You won ${bet}! Current profit: ${balance}")
+    elif sum_h < sum_b:
+        result = "\n❌ I Win!"
+        balance -= bet
+        print(f"You lost ${bet}. Current profit: ${balance}")
+    else:
+        result = "\n😐 It's a Tie (no money lost)."
+
 
     score_total = (f"Your total was {sum_h}\nMy total was {sum_b}{result}\n\n")
-    
-    with open("History_File", "a") as file:
+
+
+    with open(f"{current_user}_history.txt", "a") as file:
         file.write(score_total)
 
 
-
 def rolling():
-    die= 0
-    roll = " "
-    while die==0:
-        choice = int(input("How many dice do you want to roll? (1-3) "))
-        if choice>0 and choice<4:
-            action(choice)
-            break
-        else:
-            print("Please enter a valid choice.")
-
-    print("Do you want to continue? (yes/no)")
-    while roll !="Yes":
-        roll = input().lower().capitalize()
-        if roll == "Yes":
-            rolling()
-        else:
-            print("It was nice playing with you! Bye!")
-            break
-
-
-def roll_dice(num_dice):
-   total = 0
-   for _ in range(num_dice):
-       roll = random.randint(1, 6)
-       print(f"Rolled: {roll}")
-       total += roll
-   return total
-
-def game():
-    print("\n=== Let's Start the game! ===")
-    balance = 0
-    while balance < 100:
+    global balance
+    while True:
+        bet = money()
         try:
-            balance = int(input("Enter your starting deposit (minimum $100): "))
-            if balance < 100:
-                print("Deposit must be at least $100.")
+            choice = int(input("How many dice do you want to roll? (1-3): "))
+            if 1 <= choice <= 3:
+                action(choice, bet)
+            else:
+                print("Please enter a valid choice.")
+                continue
+        finally:
+
+
+            roll = input("Do you want to continue? (yes/no): ").strip().lower()
+            if roll != "yes":
+                print("\n=== Game Over ===")
+                if balance > 0:
+                    print(f"🎉 You finished with a profit of ${balance}!")
+                elif balance < 0:
+                    print(f"💸 You finished with a loss of ${-balance}.")
+                else:
+                    print("😐 You broke even.")
+                break
+
+
+def money():
+    while True:
+        try:
+            bet = int(input("How much money do you want to bet? ($100-1000) "))
+            if 100 <= bet <= 1000:
+                return bet
+            else:
+                print("The bet must be between 100 and 1000 dollars.")
         except ValueError:
             print("Please enter a valid number.")
 
-    total_won = 0
-    total_lost = 0
-    round_number = 1
 
-    while balance > 0:
-        print(f"\nRound {round_number} - Current balance: ${balance}")
-
-        # Betting
-        bet = 0
-        while True:
-            try:
-                bet = int(input(f"Enter your bet amount (max ${balance}): "))
-                if bet < 100 or bet > balance:
-                    print(f"Bet must be at least $100 and no more than your current balance (${balance}).")
-                else:
-                    break
-            except ValueError:
-                print("Please enter a valid number.")
-
-        # Choose dice
-        num_dice = 0
-        while True:
-            try:
-                num_dice = int(input("How many dice do you want to roll? (1-3): "))
-                if 1 <= num_dice <= 3:
-                    break
-                else:
-                    print("You can only roll between 1 and 3 dice.")
-            except ValueError:
-                print("Please enter a valid number.")
-
-        # Roll and compare
-        player_total, computer_total = action(num_dice)  
+def game():
+    while True:
+        bet = money()
+        result = input("Enter result (Win or Lose): ").strip().lower()
        
-        if player_total > computer_total:
-            balance += bet
-            total_won += bet
-            print(f"You won ${bet}!")
-        elif player_total < computer_total:
-            balance -= bet
-            total_lost += bet
-            print(f"You lost ${bet}!")
+        if result == "win":
+            answer = input("You won would you like to bet again? (yes/no)").strip().lower()
+        elif result == "lose":
+            answer = input("You lost! would you like to bet again? (yes/no)").strip().lower()
         else:
-            print("It's a tie! No money lost or won.")
+            print("Invalid result.")
+        if answer =="yes":
+            continue
+        else:
+            print("Thanks for playing! Goodbye!")
+            break
 
-        print(f"New balance: ${balance}")
-        round_number += 1
 
-        # Continue?
-        if balance > 0:
-            cont = input("Do you want to continue playing? (yes/no): ").strip().lower()
-            if cont != "yes":
-                break
-
-    print("\nGame over!")
-    print(f"Total won: ${total_won}")
-    print(f"Total lost: ${total_lost}")
-    print(f"Final balance: ${balance}")
+def show_previous_history():
+    User_name = f"{current_user}_history.txt"
+    try:
+        with open(User_name, "r") as file:
+         print(f"\n== Your Previous Game History ===")
+         print(file.read())
+    except FileNotFoundError:
+         print("f\nNo previous game history found for this user.")  
 
 
 if __name__ == '__main__':
-    if sign_in():
-        game()
+    current_user = sign_in()
+    rolling()
