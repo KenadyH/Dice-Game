@@ -98,9 +98,8 @@ def action(choice, bet):
     score_total = (f"Your total was {sum_h}\nMy total was {sum_b}{result}\n\n")
 
 
-    with open(f"{current_user}_history.txt", "a") as file:
+    with open(f"{current_user}_history.txt", "a", encoding="utf-8") as file:
         file.write(score_total)
-
 
 def rolling():
     global balance
@@ -113,18 +112,20 @@ def rolling():
             else:
                 print("Please enter a valid choice.")
                 continue
-        finally:
+        except ValueError:
+            print("Please enter a valid number.")
+            continue
 
 
-            roll = input("Do you want to continue? (yes/no): ").strip().lower()
-            if roll != "yes":
-                print("\n=== Game Over ===")
-                if balance > 0:
-                    print(f"🎉 You finished with a profit of ${balance}!")
-                elif balance < 0:
-                    print(f"💸 You finished with a loss of ${-balance}.")
-                else:
-                    print("😐 You broke even.")
+        roll = input("Do you want to continue? (yes/no): ").strip().lower()
+        if roll != "yes":
+            print("\n=== Game Over ===")
+            if balance > 0:
+                print(f"🎉 You finished with a profit of ${balance}!")
+            elif balance < 0:
+                print(f"💸 You finished with a loss of ${-balance}.")
+            else:
+                print("😐 You broke even.")
                 break
 
 
