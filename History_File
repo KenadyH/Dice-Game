@@ -34,6 +34,7 @@ Your total was 6
 My total was 7
 I Win
 
+<<<<<<< HEAD
 Your total was 5
 My total was 3
 You Win
@@ -83,10 +84,29 @@ My total was 12
 I Win
 
 Your total was 14
+=======
+Your total was 1
+My total was 3
+I Win
+
+Your total was 8
+>>>>>>> c8af892d4548376c06ef04132ebdb3357044f35e
 My total was 15
 I Win
 
 Your total was 11
+<<<<<<< HEAD
 My total was 9
+=======
+My total was 5
+You Win
+
+Your total was 5
+My total was 4
+You Win
+
+Your total was 2
+My total was 1
+>>>>>>> c8af892d4548376c06ef04132ebdb3357044f35e
 You Win
 

@@ -10,10 +10,15 @@ USER_FILE = "users.json"
 
 def load_users():
     if os.path.exists(USER_FILE):
-        with open(USER_FILE, "r") as f:
-            return json.load(f)
+        try:
+            with open(USER_FILE, "r") as f:
+                data = f.read().strip()
+                if not data:  # file is empty
+                    return {}
+                return json.loads(data)
+        except json.JSONDecodeError:
+            return {}  # Return empty dict if file is invalid
     return {}
-
 
 def save_users(users):
     with open(USER_FILE, "w") as f:
@@ -214,14 +219,7 @@ def game():
     print(f"Total won: ${total_won}")
     print(f"Total lost: ${total_lost}")
     print(f"Final balance: ${balance}")
-def show_previous_history():
-    filename = f"{current_user}_history.txt"
-    try:
-        with open(filename, "r") as file:
-            print(f"\n== Your Previous Game History ===")
-            print(file.read())
-    except FileNotFoundError:
-        print("\nNo previous game history found for this user.")
+
 
 if __name__ == '__main__':
     if sign_in():
